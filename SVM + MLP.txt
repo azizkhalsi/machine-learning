@@ -1,0 +1,67 @@
+#SVM
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# binary
+y_test_svm_binary = (y_test > 0).astype(int)
+# Initialize 
+svm_classifier = SVC(kernel='linear', random_state=42)
+
+
+# Train the SVM model
+svm_classifier.fit(X_train, y_train)
+# Predictions on the training set
+train_predictions_svm = svm_classifier.predict(X_train)
+# test data
+X_test_svm = d_raw_probs_test.drop(['class'], axis=1)
+# Predictions 
+test_predictions_svm = svm_classifier.predict(X_test)
+accuracy_train_svm = accuracy_score(y_train_binary, train_predictions_svm)
+print("Train Set Accuracy (SVM):", accuracy_train_svm)
+
+accuracy_test_svm = accuracy_score(y_test_svm_binary, test_predictions_svm)
+print("Test Set Accuracy (SVM):", accuracy_test_svm)
+
+print("Classification Report (SVM - Test Set):")
+print(classification_report(y_test_svm_binary, test_predictions_svm))
+
+conf_matrix_svm = confusion_matrix(y_test_svm_binary, test_predictions_svm)
+print("Confusion Matrix (SVM - Test Set):")
+print(conf_matrix_svm)
+
+
+##MLP
+
+from sklearn.neural_network import MLPClassifier
+
+# binary
+y_test_mlp_binary = (y_test > 0).astype(int)
+
+# Initialize MLP Classifier
+mlp_classifier = MLPClassifier(random_state=42)
+
+# Train the MLP model
+mlp_classifier.fit(X_train, y_train)
+
+# Predictions on the training set
+train_predictions_mlp = mlp_classifier.predict(X_train)
+
+# Predictions on the test set
+test_predictions_mlp = mlp_classifier.predict(X_test)
+
+# Accuracy on the training set
+accuracy_train_mlp = accuracy_score(y_train_binary, train_predictions_mlp)
+print("Train Set Accuracy (MLP):", accuracy_train_mlp)
+
+# Accuracy on the test set
+accuracy_test_mlp = accuracy_score(y_test_mlp_binary, test_predictions_mlp)
+print("Test Set Accuracy (MLP):", accuracy_test_mlp)
+
+# Classification Report on the test set
+print("Classification Report (MLP - Test Set):")
+print(classification_report(y_test_mlp_binary, test_predictions_mlp))
+
+# Confusion Matrix on the test set
+conf_matrix_mlp = confusion_matrix(y_test_mlp_binary, test_predictions_mlp)
+print("Confusion Matrix (MLP - Test Set):")
+print(conf_matrix_mlp)
